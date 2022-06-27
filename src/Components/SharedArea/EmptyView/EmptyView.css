@@ -1,0 +1,6 @@
+.EmptyView {
+}
+
+.noHover {
+  pointer-events: none;
+}
