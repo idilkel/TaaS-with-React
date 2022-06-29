@@ -1,21 +1,40 @@
 export class TodoModel {
   public id?: number;
-  public title?: string;
-  public description?: string;
-  public group?: string;
-  public when?: Date;
+  public caption?: string;
+  public info?: string;
+  public classification?: string;
+  public dueDate?: Date;
 
   public constructor(
     id?: number,
-    title?: string,
-    description?: string,
-    group?: string,
-    when?: Date
+    caption?: string,
+    info?: string,
+    classification?: string,
+    dueDate?: Date
   ) {
     this.id = id;
-    this.title = title;
-    this.description = description;
-    this.group = group;
-    this.when = when;
+    this.caption = caption;
+    this.info = info;
+    this.classification = classification;
+    this.dueDate = dueDate;
+  }
+}
+
+export class TodoPayLoadModel {
+  public caption?: string;
+  public info?: string;
+  public classification?: string;
+  public dueDate?: Date;
+
+  public constructor(
+    caption?: string,
+    info?: string,
+    classification?: string,
+    dueDate?: Date
+  ) {
+    this.caption = caption;
+    this.info = info;
+    this.classification = classification;
+    this.dueDate = dueDate;
   }
 }
