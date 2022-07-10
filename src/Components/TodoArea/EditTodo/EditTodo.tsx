@@ -85,7 +85,7 @@ function EditTodo(): JSX.Element {
   return (
     <div className="EditTodo flex-center-col">
       <h1>Update Task</h1>
-      {/* Step 9: Step 9 - OnSubmit - handle onSubmit method usign your method */}
+      {/* Step 9: Step 9 - OnSubmit - handle onSubmit method using your method */}
       <form onSubmit={handleSubmit(updateTask)} className="flex-center-col">
         {/* Step 10: {...register("caption")}     &    {errors.caption?.message} */}
         <label htmlFor="caption">Caption</label>
