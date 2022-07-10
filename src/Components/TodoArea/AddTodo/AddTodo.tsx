@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TodoModel, TodoPayLoadModel } from "../../../Models/Todo";
-import axios from "axios";
-import globals from "../../../Services/Globals";
 import notify from "../../../Services/Notification";
+import { useNavigate } from "react-router-dom";
+import web from "../../../Services/WebApi";
 
 function AddTodo(): JSX.Element {
+  const navigate = useNavigate();
+
   //Step 6: Validation Schema
   const schema = yup.object().shape({
     caption: yup.string().required("Caption is required"),
@@ -30,15 +32,17 @@ function AddTodo(): JSX.Element {
     formState: { errors, isDirty, isValid },
   } = useForm<TodoPayLoadModel>({ mode: "all", resolver: yupResolver(schema) });
 
-  //Step 8: On-submit:  Send o remote as post request
+  //Step 8: On-submit:  Send to remote as post request
   const addTask = async (todo: TodoPayLoadModel) => {
-    axios
-      .post<any>(globals.urls.tasks, todo)
+    web
+      .addTask(todo)
       .then((res) => {
-        notify.success("Task submitted");
+        notify.success("Task added successfully");
+        navigate("/tasks");
       })
       .catch((err) => {
         notify.error(err.message);
+        navigate("/tasks");
       });
   };
 
@@ -75,7 +79,9 @@ function AddTodo(): JSX.Element {
           id="dueDate"
         />
         <span>{errors.dueDate?.message}</span>
-        <button disabled={!isValid}>Add</button>
+        <button className="button-success" disabled={!isValid}>
+          Add
+        </button>
       </form>
     </div>
   );

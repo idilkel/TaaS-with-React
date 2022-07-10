@@ -1,0 +1,10 @@
+.Donate {
+  color: #06283d;
+  /* height: 60%; */
+}
+
+.Donate span {
+  font-size: large;
+  font-weight: 600;
+  margin: 5px;
+}
