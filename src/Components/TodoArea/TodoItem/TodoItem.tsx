@@ -14,7 +14,10 @@ function TodoItem(props: TodoItemProps): JSX.Element {
       <h2 className="single-line-only">{props.task.caption}</h2>
 
       <div className="card">
-        <img src="https://cataas.com/cat/gif" alt={props.task.caption} />
+        <img
+          src="https://loremflickr.com/150/150/homework"
+          alt={props.task.caption}
+        />
         <span>{props.task.classification}</span>
         <span className="single-line-only">{props.task.info}</span>
         <span className="date">
