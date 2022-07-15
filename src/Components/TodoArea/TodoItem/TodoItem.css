@@ -25,6 +25,7 @@
   margin: auto;
   text-align: center;
   font-family: arial;
+  box-sizing: border-box;
 }
 
 .date {

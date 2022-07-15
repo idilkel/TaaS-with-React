@@ -6,6 +6,8 @@ import { TodoModel, TodoPayLoadModel } from "../../../Models/Todo";
 import notify from "../../../Services/Notification";
 import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
+import store from "../../../Redux/Store";
+import { taskAddedAction } from "../../../Redux/TasksAppState";
 
 function AddTodo(): JSX.Element {
   const navigate = useNavigate();
@@ -39,6 +41,8 @@ function AddTodo(): JSX.Element {
       .then((res) => {
         notify.success("Task added successfully");
         navigate("/tasks");
+        // Update App State (Global State)
+        store.dispatch(taskAddedAction(res.data));
       })
       .catch((err) => {
         notify.error(err.message);
@@ -50,7 +54,7 @@ function AddTodo(): JSX.Element {
     <div className="AddTodo flex-center-col">
       <h1>Add Task</h1>
       {/* Step 9: Step 9 - OnSubmit - handle onSubmit method usign your method */}
-      <form onSubmit={handleSubmit(addTask)} className="flex-center-col">
+      <form onSubmit={handleSubmit(addTask)} className="flex-center-col box">
         {/* Step 10: {...register("caption")}     &    {errors.caption?.message} */}
         <label htmlFor="caption">Caption</label>
         <input

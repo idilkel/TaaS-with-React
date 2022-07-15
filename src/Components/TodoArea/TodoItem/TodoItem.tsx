@@ -18,7 +18,8 @@ function TodoItem(props: TodoItemProps): JSX.Element {
         <span>{props.task.classification}</span>
         <span className="single-line-only">{props.task.info}</span>
         <span className="date">
-          {moment(props.task.dueDate).format("DD/MM/YYYY")}
+          {/* {moment(props.task.dueDate).format("DD/MM/YYYY")} */}
+          {props.task.dueDate.toString()}
         </span>
         <div className="flex-around">
           {/* <button>

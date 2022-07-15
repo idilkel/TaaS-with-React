@@ -7,21 +7,65 @@ import "./TodoList.css";
 import { BsPlusSquare } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import web from "../../../Services/WebApi";
+import store from "../../../Redux/Store";
+import { tasksDownloadedAction } from "../../../Redux/TasksAppState";
 
 function TodoList(): JSX.Element {
-  const [tasks, setTasks] = useState<TodoModel[]>([]);
+  const [tasks, setTasks] = useState<TodoModel[]>(
+    store.getState().tasksReducer.tasks
+  );
+  // Didn't help
+  // useEffect(() => {
+  //   return store.subscribe(() => {
+  //     setTasks(store.getState().tasksReducer.tasks);
+  //   });
+  // }, [tasks]);
+
+  console.log("todoList" + store.getState().tasksReducer.tasks);
+  // console.log("time: " + store.getState().tasksReducer.tasks[0].dueDate);
 
   useEffect(() => {
-    web
-      .getAllTasks()
-      .then((res) => {
-        notify.success("Successfully loaded tasks");
-        setTasks(res.data);
-      })
-      .catch((err) => {
-        notify.error(err.message);
-      });
+    if (store.getState().tasksReducer.tasks.length === 0 || store.subscribe) {
+      web
+        .getAllTasks()
+        .then((res) => {
+          notify.success("Successfully loaded tasks");
+          // Update Component State (Local state)
+          setTasks(res.data);
+          // Update App State (Global State)
+          store.dispatch(tasksDownloadedAction(res.data));
+          console.log("list after dispatch: " + tasks); //why empty after refresh
+          console.log("todoList" + store.getState().tasksReducer.tasks);
+          console.log(store.getState().tasksReducer.tasks);
+        })
+        .catch((err) => {
+          notify.error(err.message);
+        });
+    }
+    //Didn't help
+    // return store.subscribe(() => {
+    //   setTasks(store.getState().tasksReducer.tasks); // Will let us notify
+    // });
   }, []);
+
+  // Didn't help
+  // useEffect(() => {
+  //   return store.subscribe(() => {
+  //     web
+  //       .getAllTasks()
+  //       .then((res) => {
+  //         notify.success("Successfully loaded tasks");
+  //         // Update Component State (Local state)
+  //         setTasks(res.data);
+  //         // Update App State (Global State)
+  //         store.dispatch(tasksDownloadedAction(tasks));
+  //       })
+  //       .catch((err) => {
+  //         notify.error(err.message);
+  //       });
+  //   });
+  // }, [tasks]);
+
   return (
     <div className="TodoList flex-center-col">
       <h2>Todo List</h2>

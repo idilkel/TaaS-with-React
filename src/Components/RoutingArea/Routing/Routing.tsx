@@ -10,6 +10,9 @@ import DeleteTodo from "../../TodoArea/DeleteTodo/DeleteTodo";
 import EditTodo from "../../TodoArea/EditTodo/EditTodo";
 import TodoList from "../../TodoArea/TodoList/TodoList";
 import "./Routing.css";
+import Login from "../../AuthArea/Login/Login";
+import Register from "../../AuthArea/Register/Register";
+import Logout from "../../AuthArea/Logout/Logout";
 
 function Routing(): JSX.Element {
   return (
@@ -29,6 +32,9 @@ function Routing(): JSX.Element {
             <Donate to={"Idil"} bank={12} branch={1234} account={1234567} />
           }
         />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="logout" element={<Logout />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>

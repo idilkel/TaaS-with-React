@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import store from "../../../Redux/Store";
+import { taskDeletedAction } from "../../../Redux/TasksAppState";
 import globals from "../../../Services/Globals";
 import notify from "../../../Services/Notification";
 import web from "../../../Services/WebApi";
@@ -21,6 +23,8 @@ function DeleteTodo(): JSX.Element {
       .then((res) => {
         notify.success("Deleted successfully");
         navigate("/tasks");
+        // Update App State (Global State)
+        store.dispatch(taskDeletedAction(id));
       })
       .catch((err) => {
         notify.error(err.message);
