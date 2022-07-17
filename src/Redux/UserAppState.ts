@@ -12,7 +12,7 @@ export class AuthAppState {
         this.user = storedUser;
       }
     } catch (err) {
-      this.user = null; // as any;
+      this.user = null;
     }
   }
 }
@@ -54,7 +54,10 @@ export function authReducer(
       break;
     case AuthActionType.Login: //Payload is logged i user from backend
       newState.user = action.payload;
+      console.log("action payload" + JSON.stringify(action.payload));
       localStorage.setItem("user", JSON.stringify(newState.user)); // Saving in the session storage (won't be deleted)
+      console.log("New state: " + JSON.stringify(newState.user));
+      console.log("login done!!!!!");
       break;
     case AuthActionType.Logout: // No payload
       newState.user = null; //as any;

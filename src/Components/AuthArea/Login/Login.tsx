@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import notify from "../../../Services/Notification";
 import store from "../../../Redux/Store";
+import { loginAction } from "../../../Redux/UserAppState";
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ function Login(): JSX.Element {
 }
 
 export default Login;
-function loginAction(data: any): any {
-  throw new Error("Function not implemented.");
-}
+
+// function loginAction(data: any): any {
+//   throw new Error("Function not implemented.");
+// }

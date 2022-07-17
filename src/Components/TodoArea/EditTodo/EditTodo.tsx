@@ -189,11 +189,10 @@ function EditTodo(): JSX.Element {
     dueDate: yup
       .date()
       .min(new Date(), "Can't assign a past date")
-      .default(new Date())
+      .default(origin.dueDate)
       .typeError("You must specify a due date")
       .required("Due date is required")
-      .nullable()
-      .default(() => new Date()),
+      .nullable(),
   });
 
   //Step 7: React-hook-form

@@ -20,17 +20,17 @@ function AuthMenu(): JSX.Element {
     <div className="AuthMenu">
       {isLoggedIn ? (
         <>
-          Hello {email}{" "}
+          Hello {email}
           <Link className="link" to="logout">
             Logout
           </Link>
         </>
       ) : (
         <>
-          Hello Guest{" "}
+          Hello Guest
           <Link className="link" to="register">
             Register
-          </Link>{" "}
+          </Link>
           <Link className="link" to="login">
             Login
           </Link>
