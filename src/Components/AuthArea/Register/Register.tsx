@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CredentialsModel, RegisterModel } from "../../../Models/Welcome";
 import web from "../../../Services/WebApi";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import { useNavigate } from "react-router-dom";
 
 function Register(): JSX.Element {
@@ -43,7 +43,7 @@ function Register(): JSX.Element {
     web
       .register(credentials)
       .then((res) => {
-        notify.success("register successfully");
+        notify.success(SccMsg.REGISTER);
         navigate("/login");
       })
       .catch((err) => {

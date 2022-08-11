@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import store from "../../../Redux/Store";
 import { taskDeletedAction } from "../../../Redux/TasksAppState";
 import globals from "../../../Services/Globals";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import web from "../../../Services/WebApi";
 import "./DeleteTodo.css";
 
@@ -21,13 +21,13 @@ function DeleteTodo(): JSX.Element {
     web
       .deleteTask(id)
       .then((res) => {
-        notify.success("Deleted successfully");
+        notify.success(SccMsg.DELETE_TASK);
         navigate("/tasks");
         // Update App State (Global State)
         store.dispatch(taskDeletedAction(id));
       })
       .catch((err) => {
-        notify.error(err.message);
+        notify.error(err);
         navigate("/tasks");
       });
   };

@@ -5,9 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CredentialsModel, LoginModel } from "../../../Models/Welcome";
 import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import store from "../../../Redux/Store";
 import { loginAction } from "../../../Redux/UserAppState";
+// import Button from "react-bootstrap/Button";
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
@@ -39,12 +40,16 @@ function Login(): JSX.Element {
     web
       .login(credentials)
       .then((res) => {
-        notify.success("login successfully");
+        notify.success(SccMsg.LOGIN);
         store.dispatch(loginAction(res.data));
-        navigate("/tasks");
+        if (credentials.email === "admin@admin.com") {
+          navigate("/admin");
+        } else {
+          navigate("/tasks");
+        }
       })
       .catch((err) => {
-        notify.error(err.message);
+        notify.error(err);
       });
   };
 
@@ -69,10 +74,12 @@ function Login(): JSX.Element {
           id="password"
         />
         <span>{errors.password?.message}</span>
-
         <button className="button-success" disabled={!isValid}>
           Login
         </button>
+        {/* <Button disabled={!isValid} variant="success">
+          Login
+        </Button>{" "} */}
       </form>
     </div>
   );

@@ -40,7 +40,7 @@ export function taskDeletedAction(id: number): TaskAction {
 }
 
 export function tasksClear(): TaskAction {
-  return { type: TasksActionType.TaskDeleted };
+  return { type: TasksActionType.TasksClear };
 }
 
 // Step 5 - Reducer function perform the required action

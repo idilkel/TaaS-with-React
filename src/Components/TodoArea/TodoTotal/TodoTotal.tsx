@@ -9,17 +9,18 @@ function TodoTotal(): JSX.Element {
   const [num, setNum] = useState(store.getState().tasksReducer.tasks.length);
 
   useEffect(() => {
-    if (num === 0) {
-      web
-        .countTasks()
-        .then((res) => {
-          setNum(res.data);
-          notify.success("total : " + res.data);
-        })
-        .catch((err) => {
-          notify.error(err.message);
-        });
-    }
+    // if (num === 0) {
+    //   web
+    //     .countTasks()
+    //     .then((res) => {
+    //       setNum(res.data);
+    //       // notify.success("total : " + res.data);
+    //       console.log("count : " + res.data);
+    //     })
+    //     .catch((err) => {
+    //       notify.error(err);
+    //     });
+    // }
     return store.subscribe(() => {
       setNum(store.getState().tasksReducer.tasks.length);
     });
@@ -42,7 +43,7 @@ function TodoTotal(): JSX.Element {
 //         setTasks(res.data);
 //       })
 //       .catch((err) => {
-//         notify.error(err.message);
+//         notify.error(err);
 //       });
 //   }, [tasks.length]);
 //   return <div className="Circle">{tasks.length}</div>;

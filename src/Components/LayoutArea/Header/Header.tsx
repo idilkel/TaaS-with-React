@@ -7,7 +7,7 @@ function Header(): JSX.Element {
   return (
     <div className="Header flex-around">
       <Logo />
-      <h1>Todo App</h1>
+      <h1>Tasks App</h1>
       {/* <Clock /> */}
       <AuthMenu />
     </div>

@@ -13,6 +13,7 @@ import "./Routing.css";
 import Login from "../../AuthArea/Login/Login";
 import Register from "../../AuthArea/Register/Register";
 import Logout from "../../AuthArea/Logout/Logout";
+import AdminTodoList from "../../TodoArea/AdminTodoList/AdminTodoList";
 
 function Routing(): JSX.Element {
   return (
@@ -22,6 +23,7 @@ function Routing(): JSX.Element {
         <Route path="/home" element={<Home />} />
         <Route index element={<Home />} />
         <Route path="/tasks" element={<TodoList />} />
+        <Route path="/admin" element={<AdminTodoList />} />
         <Route path="/tasks/add" element={<AddTodo />} />
         <Route path="/tasks/delete/:id" element={<DeleteTodo />} />
         <Route path="/tasks/update/:id" element={<EditTodo />} />

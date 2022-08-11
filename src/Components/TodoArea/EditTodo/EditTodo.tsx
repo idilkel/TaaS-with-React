@@ -73,7 +73,7 @@
 //         store.dispatch(taskUpdatedAction(res.data));
 //       })
 //       .catch((err) => {
-//         notify.error("Oppsy : " + err.message);
+//         notify.error("Oppsy : " + err);
 //       });
 //   };
 
@@ -125,7 +125,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TodoModel, TodoPayLoadModel } from "../../../Models/Todo";
 import { useEffect, useState } from "react";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import { useNavigate, useParams } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import store from "../../../Redux/Store";
@@ -171,7 +171,7 @@ function EditTodo(): JSX.Element {
   //       setOrigin(res.data);
   //     })
   //     .catch((err) => {
-  //       notify.error(err.message);
+  //       notify.error(err);
   //     });
   // }, []);
 
@@ -220,13 +220,13 @@ function EditTodo(): JSX.Element {
     web
       .updateTask(id, todo)
       .then((res) => {
-        notify.success("Task updated");
+        notify.success(SccMsg.UPDATE_TASK);
         navigate("/tasks");
         // Update App State (Global State)
         store.dispatch(taskUpdatedAction(res.data));
       })
       .catch((err) => {
-        notify.error(err.message);
+        notify.error(err);
         navigate("/tasks");
       });
   };

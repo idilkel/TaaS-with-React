@@ -1,13 +1,34 @@
 import axios from "axios";
+import { date } from "yup";
 import { TodoModel, TodoPayLoadModel } from "../Models/Todo";
 import { CredentialsModel, UserModel } from "../Models/Welcome";
 import store from "../Redux/Store";
 import globals from "./Globals";
 import tokenAxios from "./InterceptorAxios";
 
+const ISODateString = (date: Date) => {
+  function pad(n: number) {
+    return n < 10 ? "0" + n : n;
+  }
+  return (
+    date.getUTCFullYear() +
+    "-" +
+    pad(date.getUTCMonth() + 1) +
+    "-" +
+    pad(date.getUTCDate()) +
+    " " +
+    pad(date.getUTCHours()) +
+    ":" +
+    pad(date.getUTCMinutes()) +
+    ":" +
+    pad(date.getUTCSeconds())
+  );
+};
+
 class WebApi {
   private taskApi = globals.urls.tasks;
   private welcomeApi = globals.urls.welcome;
+  private adminApi = globals.urls.admin;
 
   // public async addTask(task: TodoPayLoadModel): Promise<any> {
   //   const headers = { authorization: store.getState().authReducer.user?.token };
@@ -64,9 +85,34 @@ class WebApi {
     return await tokenAxios.get<TodoModel>(this.taskApi + id);
   }
 
-  public async countTasks(): Promise<any> {
-    return await tokenAxios.get<number>(this.taskApi + "count");
+  public async getTasksAscending(): Promise<any> {
+    return await tokenAxios.get<TodoModel>(this.taskApi + "asc");
   }
+
+  public async getTasksDescending(): Promise<any> {
+    return await tokenAxios.get<TodoModel>(this.taskApi + "desc");
+  }
+
+  public async getTasksBetween(start: Date, end: Date): Promise<any> {
+    const startString = ISODateString(start);
+    const endString = ISODateString(end);
+    return await tokenAxios.get<TodoModel>(
+      this.taskApi +
+        "between?startDate=" +
+        startString +
+        "&endDate=" +
+        endString
+    );
+  }
+
+  public async getAllTasksAdmin(): Promise<any> {
+    return await tokenAxios.get<TodoModel[]>(this.adminApi + "tasks");
+  }
+
+  // public async countTasks(): Promise<any> {
+  //   console.log(this.taskApi + "count");
+  //   return await tokenAxios.get<number>(this.taskApi + "count");
+  // }
 
   public async register(credentials: CredentialsModel): Promise<any> {
     return await axios.post<any>(this.welcomeApi + "register", credentials);

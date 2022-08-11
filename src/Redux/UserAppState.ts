@@ -52,7 +52,7 @@ export function authReducer(
   switch (action.type) {
     case AuthActionType.Register: //Payload is registered user from backend
       break;
-    case AuthActionType.Login: //Payload is logged i user from backend
+    case AuthActionType.Login: //Payload is logged in user from backend
       newState.user = action.payload;
       console.log("action payload" + JSON.stringify(action.payload));
       localStorage.setItem("user", JSON.stringify(newState.user)); // Saving in the session storage (won't be deleted)

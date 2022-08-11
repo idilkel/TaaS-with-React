@@ -1,27 +1,20 @@
-/* .CustomLink {
+.MenuLink {
   color: whitesmoke;
   margin-bottom: 15px;
   font-size: 30px;
   text-decoration: none;
-} */
+}
 
-.CustomLink .active {
-  color: blue;
+.MenuLink .active {
+  color: lightpink;
   border-bottom: 3px solid royalblue;
   font-weight: 700;
   font-size: xx-large;
   text-decoration: dashed;
 }
 
-.CustomLink {
-  color: purple;
-  margin-bottom: 15px;
-  font-size: 30px;
-  text-decoration: none;
-}
-
-.CustomLink:hover {
-  color: blue;
+.MenuLink:hover {
+  color: lightpink;
   /* border-bottom: 3px solid pink; */
   font-weight: 700;
   font-size: 30px;

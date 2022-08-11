@@ -4,3 +4,24 @@
 .TodoList h2 {
   text-align: center;
 }
+
+.TodoList form {
+  padding: 0%;
+  width: 120px;
+  font-size: x-small;
+  margin-left: 10px;
+}
+
+.TodoList input {
+  padding: 0%;
+  width: 110px;
+  font-size: x-small;
+}
+
+form-button {
+  width: 80px;
+}
+
+span .CustomLink {
+  margin-top: 20px;
+}

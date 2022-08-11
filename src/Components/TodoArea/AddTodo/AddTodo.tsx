@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TodoModel, TodoPayLoadModel } from "../../../Models/Todo";
-import notify from "../../../Services/Notification";
+import notify, { SccMsg } from "../../../Services/Notification";
 import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import store from "../../../Redux/Store";
@@ -39,13 +39,13 @@ function AddTodo(): JSX.Element {
     web
       .addTask(todo)
       .then((res) => {
-        notify.success("Task added successfully");
+        notify.success(SccMsg.ADD_TASK);
         navigate("/tasks");
         // Update App State (Global State)
         store.dispatch(taskAddedAction(res.data));
       })
       .catch((err) => {
-        notify.error(err.message);
+        notify.error(err);
         navigate("/tasks");
       });
   };
