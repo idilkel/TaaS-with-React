@@ -14,6 +14,8 @@ import Login from "../../AuthArea/Login/Login";
 import Register from "../../AuthArea/Register/Register";
 import Logout from "../../AuthArea/Logout/Logout";
 import AdminTodoList from "../../TodoArea/AdminTodoList/AdminTodoList";
+import AdminUsers from "../../TodoArea/AdminUsers/AdminUsers";
+import LoginAdmin from "../../AuthArea/LoginAdmin/LoginAdmin";
 
 function Routing(): JSX.Element {
   return (
@@ -24,6 +26,7 @@ function Routing(): JSX.Element {
         <Route index element={<Home />} />
         <Route path="/tasks" element={<TodoList />} />
         <Route path="/admin" element={<AdminTodoList />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/tasks/add" element={<AddTodo />} />
         <Route path="/tasks/delete/:id" element={<DeleteTodo />} />
         <Route path="/tasks/update/:id" element={<EditTodo />} />
@@ -34,9 +37,10 @@ function Routing(): JSX.Element {
             <Donate to={"Idil"} bank={12} branch={1234} account={1234567} />
           }
         />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="logout" element={<Logout />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/admin" element={<LoginAdmin />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>

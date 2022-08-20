@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import store from "../../../Redux/Store";
 import { tasksClear } from "../../../Redux/TasksAppState";
-import { logoutAction } from "../../../Redux/UserAppState";
+import { logoutAction } from "../../../Redux/AuthAppState";
 import "./Logout.css";
 
 function Logout(): JSX.Element {

@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import notify, { SccMsg } from "../../../Services/Notification";
 import store from "../../../Redux/Store";
-import { loginAction } from "../../../Redux/UserAppState";
+import { loginAction } from "../../../Redux/AuthAppState";
+import { ClientTypes } from "../../../Models/Enums";
 // import Button from "react-bootstrap/Button";
 
 function Login(): JSX.Element {
@@ -34,7 +35,7 @@ function Login(): JSX.Element {
     const credentials = new CredentialsModel();
     credentials.email = model.email;
     credentials.password = model.password;
-
+    credentials.type = ClientTypes.USER;
     console.log("going to send to remote server..." + credentials);
 
     web
@@ -42,11 +43,11 @@ function Login(): JSX.Element {
       .then((res) => {
         notify.success(SccMsg.LOGIN);
         store.dispatch(loginAction(res.data));
-        if (credentials.email === "admin@admin.com") {
-          navigate("/admin");
-        } else {
-          navigate("/tasks");
-        }
+        // if (credentials.type === ClientTypes.ADMIN) {
+        //   navigate("/admin");
+        // } else {
+        navigate("/tasks");
+        // }
       })
       .catch((err) => {
         notify.error(err);
@@ -55,7 +56,7 @@ function Login(): JSX.Element {
 
   return (
     <div className="Login flex-center-col">
-      <h1>Login</h1>
+      <h1>User Login</h1>
       {/* Step 9 - handleSubmit your form  */}
       <form onSubmit={handleSubmit(loginUser)} className="flex-center-col">
         <label htmlFor="email">Email</label>
@@ -74,6 +75,7 @@ function Login(): JSX.Element {
           id="password"
         />
         <span>{errors.password?.message}</span>
+
         <button className="button-success" disabled={!isValid}>
           Login
         </button>

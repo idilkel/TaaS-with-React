@@ -1,6 +1,7 @@
 import axios from "axios";
 import { date } from "yup";
 import { TodoModel, TodoPayLoadModel } from "../Models/Todo";
+import { UserTypeModel } from "../Models/UserTypeModel";
 import { CredentialsModel, UserModel } from "../Models/Welcome";
 import store from "../Redux/Store";
 import globals from "./Globals";
@@ -105,10 +106,6 @@ class WebApi {
     );
   }
 
-  public async getAllTasksAdmin(): Promise<any> {
-    return await tokenAxios.get<TodoModel[]>(this.adminApi + "tasks");
-  }
-
   // public async countTasks(): Promise<any> {
   //   console.log(this.taskApi + "count");
   //   return await tokenAxios.get<number>(this.taskApi + "count");
@@ -120,6 +117,14 @@ class WebApi {
 
   public async login(credentials: CredentialsModel): Promise<any> {
     return await axios.post<UserModel>(this.welcomeApi + "login", credentials);
+  }
+
+  public async getAllUsers(): Promise<any> {
+    return await tokenAxios.get<UserTypeModel[]>(this.adminApi + "users");
+  }
+
+  public async getAllTasksAdmin(): Promise<any> {
+    return await tokenAxios.get<TodoModel[]>(this.adminApi + "tasks");
   }
 }
 

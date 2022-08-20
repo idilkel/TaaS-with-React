@@ -13,20 +13,24 @@ export class RegisterModel {
 export class CredentialsModel {
   public email?: string;
   public password?: string;
+  public type?: string;
 
-  public constructor(email?: string, password?: string) {
+  public constructor(email?: string, password?: string, type?: string) {
     this.email = email;
     this.password = password;
+    this.type = type;
   }
 }
 
 export class LoginModel {
   public email?: string;
   public password?: string;
+  public type?: string;
 
-  public constructor(email?: string, password?: string) {
+  public constructor(email?: string, password?: string, type?: string) {
     this.email = email;
     this.password = password;
+    this.type = type;
   }
 }
 
@@ -34,9 +38,11 @@ export class LoginModel {
 export class UserModel {
   public token?: string;
   public email?: string;
+  public type?: string;
 
-  public constructor(token?: string, email?: string) {
+  public constructor(token?: string, email?: string, type?: string) {
     this.token = token;
     this.email = email;
+    this.type = type;
   }
 }

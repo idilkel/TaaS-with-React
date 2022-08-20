@@ -1,17 +1,17 @@
-import "./Register.css";
+import "./LoginAdmin.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CredentialsModel, RegisterModel } from "../../../Models/Welcome";
+import { CredentialsModel, LoginModel } from "../../../Models/Welcome";
+import { useNavigate } from "react-router-dom";
 import web from "../../../Services/WebApi";
 import notify, { SccMsg } from "../../../Services/Notification";
-import { useNavigate } from "react-router-dom";
 import store from "../../../Redux/Store";
-import { UserAddedAction, usersClear } from "../../../Redux/UsersAppState";
+import { loginAction } from "../../../Redux/AuthAppState";
+import { ClientTypes } from "../../../Models/Enums";
 
-function Register(): JSX.Element {
+function LoginAdmin(): JSX.Element {
   const navigate = useNavigate();
-
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -22,44 +22,41 @@ function Register(): JSX.Element {
       .min(3, "at least 3 characters required")
       .max(8, "at most 8 characters required")
       .required("Password is required"),
-    confirm: yup
-      .string()
-      .test("passwords-match", "Passwords must match", function (value) {
-        return this.parent.password === value;
-      }),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid },
-  } = useForm<RegisterModel>({ mode: "all", resolver: yupResolver(schema) });
+  } = useForm<LoginModel>({ mode: "all", resolver: yupResolver(schema) });
 
-  const registerUser = async (model: RegisterModel) => {
+  const loginUser = async (model: LoginModel) => {
     const credentials = new CredentialsModel();
     credentials.email = model.email;
     credentials.password = model.password;
-
+    credentials.type = ClientTypes.ADMIN;
     console.log("going to send to remote server..." + credentials);
 
     web
-      .register(credentials)
+      .login(credentials)
       .then((res) => {
-        notify.success(SccMsg.REGISTER);
-        store.dispatch(usersClear());
-        navigate("/login");
+        notify.success(SccMsg.LOGIN);
+        store.dispatch(loginAction(res.data));
+        if (credentials.type === ClientTypes.ADMIN) {
+          navigate("/admin");
+        } else {
+          navigate("/tasks");
+        }
       })
       .catch((err) => {
-        console.log(err);
-        notify.error(err.value);
+        notify.error(err);
       });
   };
-
   return (
-    <div className="Register flex-center-col">
-      <h1>Register</h1>
+    <div className="LoginAdmin flex-center-col">
+      <h1>Admin Login</h1>
       {/* Step 9 - handleSubmit your form  */}
-      <form onSubmit={handleSubmit(registerUser)} className="flex-center-col">
+      <form onSubmit={handleSubmit(loginUser)} className="flex-center-col">
         <label htmlFor="email">Email</label>
         <input
           {...register("email")}
@@ -76,20 +73,16 @@ function Register(): JSX.Element {
           id="password"
         />
         <span>{errors.password?.message}</span>
-        <label htmlFor="confirm">Confirm Password</label>
-        <input
-          {...register("confirm")}
-          type="password"
-          placeholder="confirm"
-          id="confirm"
-        />
-        <span>{errors.confirm?.message}</span>
+
         <button className="button-success" disabled={!isValid}>
-          Register
+          Login
         </button>
+        {/* <Button disabled={!isValid} variant="success">
+          Login
+        </Button>{" "} */}
       </form>
     </div>
   );
 }
 
-export default Register;
+export default LoginAdmin;

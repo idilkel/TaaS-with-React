@@ -7,7 +7,7 @@ function Footer(): JSX.Element {
   return (
     <div className="Footer flex-around">
       <SocialMedia />
-      <p>All rights reserved &copy; to John Bryce</p>
+      <p>All rights reserved &copy; to Idil Kasuto Kelson</p>
       <TodoTotal />
     </div>
   );

@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DatesBetweenModel } from "../../../Models/DatesBetween";
+import { Button } from "react-bootstrap";
 
 function AdminTodoList(): JSX.Element {
   const [tasks, setTasks] = useState<TodoModel[]>(
@@ -44,12 +45,17 @@ function AdminTodoList(): JSX.Element {
   }, []);
 
   const navigate = useNavigate();
+  const usersList = () => {
+    navigate("/admin/users");
+  };
 
   return (
     <div className="AdminTodoList flex-center-col">
       <div className="flex-col-top-center">
-        <h2>Todo List</h2>
-
+        <h2>Todo List - Admin Page</h2>
+        <Button variant="secondary" onClick={usersList}>
+          Users List
+        </Button>{" "}
         <div className="flex-center"></div>
       </div>
       <div>

@@ -37,8 +37,9 @@ function AuthMenu(): JSX.Element {
       ) : (
         <>
           Hello Guest
-          <MenuLink to="register">Register</MenuLink>
-          <MenuLink to="login">Login</MenuLink>
+          <MenuLink to="/register">Register</MenuLink>
+          <MenuLink to="/login">Login</MenuLink>
+          <MenuLink to="/login/admin">Admin</MenuLink>
           <button className="button-success" onClick={goBack}>
             Back
           </button>

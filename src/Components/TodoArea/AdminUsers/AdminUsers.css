@@ -1,0 +1,8 @@
+.AdminUsers {
+}
+
+.AdminUsers > .Table {
+  background-color: #06283d;
+  color: #dff6ff;
+  margin-top: 20px;
+}
