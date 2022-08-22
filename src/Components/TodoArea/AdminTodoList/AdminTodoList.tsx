@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DatesBetweenModel } from "../../../Models/DatesBetween";
 import { Button } from "react-bootstrap";
+import { ClientTypes } from "../../../Models/Enums";
 
 function AdminTodoList(): JSX.Element {
   const [tasks, setTasks] = useState<TodoModel[]>(
@@ -23,6 +24,12 @@ function AdminTodoList(): JSX.Element {
 
   console.log("todoList" + store.getState().tasksReducer.tasks);
   // console.log("time: " + store.getState().tasksReducer.tasks[0].dueDate);
+  let userType: string;
+  if (localStorage.getItem("user") !== null) {
+    userType = JSON.parse(localStorage.getItem("user")).type;
+  } else {
+    userType = null;
+  }
 
   useEffect(() => {
     if (store.getState().tasksReducer.tasks.length === 0 || store.subscribe) {
@@ -51,24 +58,35 @@ function AdminTodoList(): JSX.Element {
 
   return (
     <div className="AdminTodoList flex-center-col">
-      <div className="flex-col-top-center">
-        <h2>Todo List - Admin Page</h2>
-        <Button variant="secondary" onClick={usersList}>
-          Users List
-        </Button>{" "}
-        <div className="flex-center"></div>
-      </div>
-      <div>
-        {/* {tasks.map((t) => (<p key={t.id}>{t.title}</p>))} */}
-        <div className="flex-row-none-wrap-list">
-          {/* {tasks.map((t) => (<TodoItem key={t.id} task={t} />))} */}
-          {tasks.length > 0 ? (
-            tasks.map((t) => <TodoItem key={t.id} task={t} />)
-          ) : (
-            <EmptyView msg={"No tasks on the list"} />
-          )}
-        </div>
-      </div>
+      {userType === ClientTypes.ADMIN ? (
+        <>
+          {" "}
+          <div className="flex-col-top-center">
+            <h2>Todo List - Admin Page</h2>
+            <Button variant="secondary" onClick={usersList}>
+              Users List
+            </Button>{" "}
+          </div>
+          <div>
+            {/* {tasks.map((t) => (<p key={t.id}>{t.title}</p>))} */}
+            <div className="flex-row-none-wrap-list">
+              {/* {tasks.map((t) => (<TodoItem key={t.id} task={t} />))} */}
+              {tasks.length > 0 ? (
+                tasks.map((t) => <TodoItem key={t.id} task={t} />)
+              ) : (
+                <EmptyView msg={"No tasks on the list"} />
+              )}
+            </div>
+          </div>{" "}
+        </>
+      ) : (
+        <>
+          {" "}
+          <h3>
+            <EmptyView msg={"Admin page only!"} />
+          </h3>{" "}
+        </>
+      )}
     </div>
   );
 }

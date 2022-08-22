@@ -19,12 +19,13 @@ function TodoList(): JSX.Element {
   const [tasks, setTasks] = useState<TodoModel[]>(
     store.getState().tasksReducer.tasks
   );
-  // Didn't help
-  // useEffect(() => {
-  //   return store.subscribe(() => {
-  //     setTasks(store.getState().tasksReducer.tasks);
-  //   });
-  // }, [tasks]);
+
+  let userType: string;
+  if (localStorage.getItem("user") !== null) {
+    userType = JSON.parse(localStorage.getItem("user")).type;
+  } else {
+    userType = null;
+  }
 
   console.log("todoList" + store.getState().tasksReducer.tasks);
   // console.log("time: " + store.getState().tasksReducer.tasks[0].dueDate);
@@ -135,24 +136,6 @@ function TodoList(): JSX.Element {
         notify.error(err);
       });
   };
-
-  // Didn't help
-  // useEffect(() => {
-  //   return store.subscribe(() => {
-  //     web
-  //       .getAllTasks()
-  //       .then((res) => {
-  //         notify.success("Successfully loaded tasks");
-  //         // Update Component State (Local state)
-  //         setTasks(res.data);
-  //         // Update App State (Global State)
-  //         store.dispatch(tasksDownloadedAction(tasks));
-  //       })
-  //       .catch((err) => {
-  //         notify.error(err);
-  //       });
-  //   });
-  // }, [tasks]);
 
   return (
     <div className="TodoList flex-center-col">

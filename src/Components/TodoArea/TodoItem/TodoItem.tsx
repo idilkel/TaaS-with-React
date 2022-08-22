@@ -79,10 +79,11 @@ function TodoItem(props: TodoItemProps): JSX.Element {
       <span className="flex-center">{props.task.caption}</span>
 
       <div className="card">
-        <img
+        {/* <img
           src="https://loremflickr.com/150/150/homework"
           alt={props.task.caption}
-        />
+        /> */}
+        <img src="https://i.imgur.com/H1X7kPy.jpg" alt={props.task.caption} />
 
         <span>{props.task.classification}</span>
         <span className="single-line-only">{props.task.info}</span>

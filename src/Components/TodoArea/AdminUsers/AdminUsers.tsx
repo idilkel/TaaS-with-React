@@ -22,7 +22,7 @@ function AdminUsers(): JSX.Element {
     userType = null;
   }
 
-  //<= 1 since user app state can be filled with only one company if company was logged first for add coupon to get company mail
+  //<= 1 since user app state can be filled with only one user if user was logged first for add coupon to get users mail
   useEffect(() => {
     if (store.getState().usersReducer.users.length <= 1) {
       web
@@ -76,7 +76,7 @@ function AdminUsers(): JSX.Element {
         </div>
       ) : (
         <h3>
-          <EmptyView msg={"Only Admin can see the list. No Companies"} />
+          <EmptyView msg={"Only Admin can see the list!"} />
         </h3>
       )}
     </div>

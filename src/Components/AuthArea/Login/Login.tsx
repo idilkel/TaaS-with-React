@@ -43,11 +43,11 @@ function Login(): JSX.Element {
       .then((res) => {
         notify.success(SccMsg.LOGIN);
         store.dispatch(loginAction(res.data));
-        // if (credentials.type === ClientTypes.ADMIN) {
-        //   navigate("/admin");
-        // } else {
-        navigate("/tasks");
-        // }
+        if (credentials.type === ClientTypes.ADMIN) {
+          navigate("/admin");
+        } else {
+          navigate("/tasks");
+        }
       })
       .catch((err) => {
         notify.error(err);
