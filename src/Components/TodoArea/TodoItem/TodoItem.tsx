@@ -21,12 +21,15 @@ interface TodoItemProps {
 //   email = JSON.parse(localStorage.getItem("user")).email;
 // }
 
+let userType: string;
+
 const findUserType = () => {
-  // let userType: string;
   if (localStorage.getItem("user") !== null) {
-    return JSON.parse(localStorage.getItem("user")).type;
+    userType = JSON.parse(localStorage.getItem("user")).type;
+    return userType;
   } else {
-    return null;
+    userType = null;
+    return userType;
   }
 };
 
@@ -37,7 +40,7 @@ function TodoItem(props: TodoItemProps): JSX.Element {
 
   useEffect(() => {
     if (
-      // userType === ClientTypes.ADMIN &&
+      userType === ClientTypes.ADMIN &&
       store.getState().usersReducer.users.length <= 1
     ) {
       console.log("user type is " + findUserType());

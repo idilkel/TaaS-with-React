@@ -11,9 +11,9 @@ class DevelopmentGlobals extends Globals {
 
 class ProductionGlobals extends Globals {
   public urls = {
-    tasks: "www.aws.com/website/tasks",
-    admin: "www.aws.com/website/admin",
-    welcome: "www.aws.com/webSite/welcome/",
+    tasks: "/api/users/tasks/",
+    admin: "/api/admin/",
+    welcome: "/api/welcome/",
   };
 }
 
